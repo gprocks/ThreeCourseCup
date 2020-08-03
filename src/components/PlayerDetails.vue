@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Leaderboard</h2>
     <div class="player" v-for="(item,index) in rankedList" :key="index">
       <div>
         <span>Player:</span>
@@ -65,11 +66,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .player {
   padding:1rem;
   border: 1px solid black;
   border-radius: 0.25rem;
-  margin-bottom:1rem
+  margin-bottom:1rem;
+  span {
+    font-weight: bold;
+  }
 }
 </style>

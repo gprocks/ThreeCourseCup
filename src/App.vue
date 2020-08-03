@@ -1,8 +1,28 @@
-<template>
+<template lang="html">
   <div id="app">
-    <LineChart :team-scores="teamScores" :race-names="raceNamesWithData"/>
-    <BarChart :team-scores="teamScores" :race-names="raceNamesWithData"/>
-    <PlayerDetails :team-scores="teamScores" :race-names="raceNamesWithData"/>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-12"> 
+          <PlayerDetails :team-scores="teamScores" :race-names="raceNamesWithData"/>
+        </div>
+        <div class="col">
+          <div style="width:100%" class="btn-group btn-group-justified">
+            <button type="button" class="btn btn-secondary" @click="showComponent=0">Total Points History</button>
+            <button type="button" class="btn btn-secondary" @click="showComponent=1">Per Race Score</button>
+          </div>
+          <div div class="row" v-if="showComponent===0">
+            <div class="col">
+              <LineChart :team-scores="teamScores" :race-names="raceNamesWithData"/>
+            </div>
+          </div>
+          <div class="row" v-if="showComponent===1">
+            <div class="col">
+              <BarChart :team-scores="teamScores" :race-names="raceNamesWithData"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,6 +45,7 @@ export default {
   },
   data() {
     return {
+      showComponent:0,
       raceNames: [
         "Austria",
         "Steiermark",
@@ -89,6 +110,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 </style>
