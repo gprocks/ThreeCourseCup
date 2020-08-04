@@ -1,5 +1,5 @@
 <script>
-import { Bar } from "vue-chartjs";
+import { Bar } from 'vue-chartjs'
 
 export default {
   extends: Bar,
@@ -14,18 +14,18 @@ export default {
     }
   },
   computed: {
-    chartData() {
+    chartData () {
       return this.teamScores.map(team => {
         return {
           label: team.player,
           data: team.scores,
           backgroundColor: team.colour,
           borderColor: team.colour
-        };
-      });
+        }
+      })
     }
   },
-  mounted() {
+  mounted () {
     this.renderChart(
       {
         labels: this.raceNames,
@@ -36,10 +36,10 @@ export default {
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: "Per Race Scores"
+          text: 'Per Race Scores'
         }
       }
-    );
+    )
   }
-};
+}
 </script>

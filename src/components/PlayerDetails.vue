@@ -18,11 +18,16 @@
         <span>Highest weekly score:</span>
         {{raceNames[indexOfMax(item.scores)]}} ({{item.scores[indexOfMax(item.scores)]}})
       </div>
+      <div>
+        <span>Average weekly score:</span>
+        {{getAverage(item.scores)}}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mean } from 'mathjs'
 export default {
   props: {
     teamScores: {
@@ -34,36 +39,38 @@ export default {
       required: true
     }
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {
-    rankedList() {
-      let tempArray = [...this.teamScores];
-      return tempArray.sort((a, b) => b.total() - a.total());
+    rankedList () {
+      let tempArray = [...this.teamScores]
+      return tempArray.sort((a, b) => b.total() - a.total())
     }
   },
   methods: {
-
-    indexOfMax(arr) {
+    getAverage (scores) {
+      return mean(scores)
+    },
+    indexOfMax (arr) {
       if (arr.length === 0) {
-        return -1;
+        return -1
       }
 
-      var max = arr[0];
-      var maxIndex = 0;
+      var max = arr[0]
+      var maxIndex = 0
 
       for (var i = 1; i < arr.length; i++) {
         if (arr[i] > max) {
-          maxIndex = i;
-          max = arr[i];
+          maxIndex = i
+          max = arr[i]
         }
       }
 
-      return maxIndex;
+      return maxIndex
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
