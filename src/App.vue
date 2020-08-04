@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-3 col-12"> 
+        <div class="col-lg-3 col-12">
           <PlayerDetails :team-scores="teamScores" :race-names="raceNamesWithData"/>
         </div>
         <div class="col">
@@ -27,80 +27,80 @@
 </template>
 
 <script>
-import LineChart from "./components/LineChart.vue";
-import BarChart from "./components/BarChart.vue";
-import PlayerDetails from "./components/PlayerDetails.vue";
+import LineChart from './components/LineChart.vue'
+import BarChart from './components/BarChart.vue'
+import PlayerDetails from './components/PlayerDetails.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     LineChart,
     BarChart,
     PlayerDetails
   },
   computed: {
-    raceNamesWithData() {
-      return this.raceNames.slice(0, this.teamScores.length);
+    raceNamesWithData () {
+      return this.raceNames.slice(0, this.teamScores.length)
     }
   },
-  data() {
+  data () {
     return {
-      showComponent:0,
+      showComponent: 0,
       raceNames: [
-        "Austria",
-        "Steiermark",
-        "Hungary",
-        "Britian",
-        "Britian Returns",
-        "Spain",
-        "Belgium",
-        "Italy"
+        'Austria',
+        'Steiermark',
+        'Hungary',
+        'Britian',
+        'Britian Returns',
+        'Spain',
+        'Belgium',
+        'Italy'
       ],
       teamScores: [
         {
-          player: "Eoghan",
-          colour: "#58D68D",
+          player: 'Eoghan',
+          colour: '#58D68D',
           scores: [124, 204, 271, 125],
-          total() {
+          total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
-            );
+            )
           }
         },
         {
-          player: "Gerard",
-          colour: "#C0392B",
+          player: 'Gerard',
+          colour: '#C0392B',
           scores: [109, 186, 157, 136],
-          total() {
+          total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
-            );
+            )
           }
         },
         {
-          player: "Shauna",
-          colour: "#7FB3D5",
+          player: 'Shauna',
+          colour: '#7FB3D5',
           scores: [80, 181, 47, 147],
-          total() {
+          total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
-            );
+            )
           }
         },
         {
-          player: "Stone",
-          colour: "#6E2C00",
+          player: 'Stone',
+          colour: '#6E2C00',
           scores: [119, 176, 83, 176],
-          total() {
+          total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
-            );
+            )
           }
         }
       ]
-    };
+    }
   }
-};
+}
 </script>
 
 <style>
