@@ -50,8 +50,8 @@ export default {
         'Austria',
         'Steiermark',
         'Hungary',
-        'Britian',
-        'Britian Returns',
+        'Britain',
+        'Britain Returns',
         'Spain',
         'Belgium',
         'Italy'
