@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     raceNamesWithData () {
-      return this.raceNames.slice(0, this.teamScores.length)
+      return this.raceNames.slice(0, this.teamScores[0].scores.length)
     }
   },
   data () {
@@ -60,7 +60,7 @@ export default {
         {
           player: 'Eoghan',
           colour: '#58D68D',
-          scores: [124, 204, 271, 125, 185],
+          scores: [124, 198, 271, 125, 185],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
