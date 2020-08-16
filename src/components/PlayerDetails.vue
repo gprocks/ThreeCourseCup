@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     getAverage (scores) {
-      return mean(scores)
+      return mean(scores).toFixed(2)
     },
     indexOfMax (arr) {
       if (arr.length === 0) {
