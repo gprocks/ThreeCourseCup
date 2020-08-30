@@ -60,7 +60,7 @@ export default {
         {
           player: 'Eoghan',
           colour: '#58D68D',
-          scores: [124, 198, 271, 125, 185, 220],
+          scores: [124, 198, 271, 125, 185, 220, 161],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
@@ -70,7 +70,7 @@ export default {
         {
           player: 'Gerard',
           colour: '#C0392B',
-          scores: [109, 186, 157, 136, 289, 228],
+          scores: [109, 186, 157, 136, 289, 228, 193],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
@@ -80,7 +80,7 @@ export default {
         {
           player: 'Chef Shauna',
           colour: '#7FB3D5',
-          scores: [80, 181, 47, 147, 279, 222],
+          scores: [80, 181, 47, 147, 279, 222, 171],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
@@ -90,7 +90,7 @@ export default {
         {
           player: 'Stone',
           colour: '#6E2C00',
-          scores: [119, 176, 83, 176, 179, 227],
+          scores: [119, 176, 83, 176, 179, 227, 169],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
