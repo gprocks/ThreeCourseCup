@@ -12,12 +12,12 @@
           </div>
           <div div class="row" v-if="showComponent===0">
             <div class="col">
-              <LineChart :team-scores="teamScores" :race-names="raceNamesWithData"/>
+              <LineChart :team-scores="teamScoresSorted" :race-names="raceNamesWithData"/>
             </div>
           </div>
           <div class="row" v-if="showComponent===1">
             <div class="col">
-              <BarChart :team-scores="teamScores" :race-names="raceNamesWithData"/>
+              <BarChart :team-scores="teamScoresSorted" :race-names="raceNamesWithData"/>
             </div>
           </div>
         </div>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import clonedeep from 'lodash.clonedeep'
 import LineChart from './components/LineChart.vue'
 import BarChart from './components/BarChart.vue'
 import PlayerDetails from './components/PlayerDetails.vue'
@@ -41,6 +42,16 @@ export default {
   computed: {
     raceNamesWithData () {
       return this.raceNames.slice(0, this.teamScores[0].scores.length)
+    },
+    teamScoresSorted () {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      let sortedScores = clonedeep(this.teamScores.sort((a, b) => {
+        let scorea = a.total()
+        let scoreb = b.total()
+        return scoreb - scorea
+      }))
+      sortedScores[sortedScores.length - 1].player = 'Chef ' + sortedScores[sortedScores.length - 1].player
+      return sortedScores
     }
   },
   data () {
@@ -54,13 +65,22 @@ export default {
         'Britain Returns',
         'Spain',
         'Belgium',
-        'Italy'
+        'Italy',
+        'Tuscany',
+        'Russia',
+        'Eifel',
+        'Portugal',
+        'Imola',
+        'Turkey',
+        'Bahrain',
+        'Bahrain II',
+        'Abu Dhabi'
       ],
       teamScores: [
         {
           player: 'Eoghan',
           colour: '#58D68D',
-          scores: [124, 198, 271, 125, 185, 220, 161],
+          scores: [124, 198, 271, 125, 185, 220, 161, 170],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
@@ -70,7 +90,7 @@ export default {
         {
           player: 'Gerard',
           colour: '#C0392B',
-          scores: [109, 186, 157, 136, 289, 228, 193],
+          scores: [109, 186, 157, 136, 289, 228, 193, 155],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
@@ -78,9 +98,9 @@ export default {
           }
         },
         {
-          player: 'Chef Shauna',
+          player: 'Shauna',
           colour: '#7FB3D5',
-          scores: [80, 181, 47, 147, 279, 222, 171],
+          scores: [80, 181, 47, 147, 279, 222, 171, 177],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
@@ -90,7 +110,7 @@ export default {
         {
           player: 'Stone',
           colour: '#6E2C00',
-          scores: [119, 176, 83, 176, 179, 227, 169],
+          scores: [119, 176, 83, 176, 179, 227, 169, 177],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
