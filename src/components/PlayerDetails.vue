@@ -2,13 +2,33 @@
   <div>
     <h2>Leaderboard</h2>
     <div v-for="(item,index) in rankedList" :key="index">
-      <div class="striking-distance mb-2" v-if="index>0 && getStrinkingDistance(item ,rankedList[index-1])">
-        <div class="header">Striking distance </div>
-        <div class="body">
-          in <span class="numeric">{{getStrinkingDistance(item,rankedList[index-1])}}</span> races
+      <div class="row no-gutters striking-distance"  v-if="index>0 && getStrinkingDistance(item ,rankedList[index-1])">
+        <div class="col text-left mr-1">
+          <div class="player-name">
+          <span class="team-color-icon" :style="{'background-color': item.colour}">&nbsp;</span>{{item.player}}
+          </div>
+          <div class="mt-3">
+            Chasing <span class="text-bold">{{getPosition(index)}}</span>
+          </div>
         </div>
-
+        <div class="col-5">
+          <div class="main-block mb-2 ">
+            <div class="header">Striking distance </div>
+            <div class="body">
+              in <span class="numeric">{{getStrinkingDistance(item,rankedList[index-1])}}</span> races
+            </div>
+          </div>
+        </div>
+        <div class="col text-left ml-1">
+          <div class="player-name">
+            <span class="team-color-icon" :style="{'background-color': rankedList[index-1].colour}">&nbsp;</span>{{rankedList[index-1].player}}
+          </div>
+          <div class="mt-3">
+            <span class="text-bold">{{rankedList[index-1].total()-item.total()}}</span> ahead
+          </div>
+        </div>
       </div>
+
       <div class="player" >
 
         <div>
@@ -63,6 +83,16 @@ export default {
     }
   },
   methods: {
+    getPosition (position) {
+      switch (position) {
+        case 1:
+          return '1st'
+        case 2:
+          return '2nd'
+        case 3:
+          return '3rd'
+      }
+    },
     getStrinkingDistance (teamA, teamB) {
       const aRate = this.getAverage(teamA.scores)
       const bRate = this.getAverage(teamB.scores)
@@ -100,6 +130,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.text-bold{
+  font-weight: bold;
+}
 .player {
   padding:1rem;
   border: 1px solid black;
@@ -109,7 +142,18 @@ export default {
     font-weight: bold;
   }
 }
+.team-color-icon{
+  width: 4px;
+    height: 14px;
+    margin: 0 5px 0 0;
+    background-color:red
+}
 .striking-distance{
+  .player-name{
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
+  .main-block{
   border: 2px solid #f59842;
   font-weight: bolder;
   .header{
@@ -117,6 +161,7 @@ export default {
   }
   .numeric{
     font-size: 20pt;
+  }
   }
 }
 </style>
