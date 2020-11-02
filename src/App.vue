@@ -80,7 +80,7 @@ export default {
         {
           player: 'Eoghan',
           colour: '#58D68D',
-          scores: [124, 198, 271, 125, 185, 220, 161, 170, 226, 247, 208, 194],
+          scores: [124, 198, 271, 125, 185, 220, 161, 170, 226, 247, 208, 194,141],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
@@ -90,7 +90,7 @@ export default {
         {
           player: 'Gerard',
           colour: '#C0392B',
-          scores: [109, 186, 157, 136, 289, 228, 193, 155, 169, 242, 239, 166,183,141],
+          scores: [109, 186, 157, 136, 289, 228, 193, 155, 169, 242, 239, 166,183],
           total () {
             return this.scores.reduce(
               (accumulator, currentValue) => accumulator + currentValue
