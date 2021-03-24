@@ -1,6 +1,13 @@
 <template>
   <div>
-    <h2>Leaderboard</h2>
+    <div>
+        <b-dropdown class="mb-2" block split right>
+        <template #button-content>
+                <span class="h2">Leaderboard {{internalYear}}</span>
+        </template>
+        <b-dropdown-item v-for="y in years" @click="internalYear=y" :key="`ddi${y}`">{{y}}</b-dropdown-item>
+      </b-dropdown>
+    </div>
     <div v-for="(item,index) in rankedList" :key="index">
       <div class="row no-gutters striking-distance"  v-if="index>0 && getStrinkingDistance(item ,rankedList[index-1])">
         <div class="col text-left mr-1">
@@ -24,7 +31,7 @@
             <span class="team-color-icon" :style="{'background-color': rankedList[index-1].colour}">&nbsp;</span>{{rankedList[index-1].player}}
           </div>
           <div class="mt-3">
-            <span class="text-bold">{{rankedList[index-1].total()-item.total()}}</span> ahead
+            <span class="text-bold">{{rankedList[index-1].total-item.total}}</span> ahead
           </div>
         </div>
       </div>
@@ -45,7 +52,7 @@
         </div>
         <div>
           <span>Total Score:</span>
-          {{item.total()}}
+          {{item.total}}
         </div>
         <div>
           <span>Highest weekly score:</span>
@@ -62,6 +69,7 @@
 
 <script>
 import { mean } from 'mathjs'
+import { BDropdown, BDropdownItem } from 'bootstrap-vue'
 export default {
   props: {
     teamScores: {
@@ -71,15 +79,31 @@ export default {
     raceNames: {
       type: Array,
       required: true
+    },
+    year: {
+      type: String,
+      required: true
     }
   },
+  components: {
+    BDropdown,
+    BDropdownItem
+  },
   data () {
-    return {}
+    return {
+      years: ['2020', '2021']
+    }
   },
   computed: {
     rankedList () {
       let tempArray = [...this.teamScores]
-      return tempArray.sort((a, b) => b.total() - a.total())
+      return tempArray.sort((a, b) => b.total - a.total)
+    },
+    internalYear: {
+      get () { return this.year },
+      set (newVal) {
+        this.$emit('update:year', newVal)
+      }
     }
   },
   methods: {
@@ -97,7 +121,7 @@ export default {
       const aRate = this.getAverage(teamA.scores)
       const bRate = this.getAverage(teamB.scores)
       if (aRate > bRate) {
-        const deficit = teamB.total() - teamA.total()
+        const deficit = teamB.total - teamA.total
         const surplus = aRate - bRate
 
         return Math.ceil(deficit / surplus)
@@ -105,8 +129,12 @@ export default {
       return 0
     },
     getAverage (scores) {
-      const recentResults = scores.slice(Math.max(scores.length - 3, 1))
-      return mean(recentResults).toFixed(2)
+      if (!scores.length) {
+        return 0
+      } else {
+        const recentResults = scores.slice(Math.max(scores.length - 3, 1))
+        return mean(recentResults).toFixed(2)
+      }
     },
     indexOfMax (arr) {
       if (arr.length === 0) {

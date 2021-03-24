@@ -1,9 +1,11 @@
 <template lang="html">
-  <div id="app">
+  <div id="app" v-if="!loading">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3 col-12">
-          <PlayerDetails :team-scores="teamScores" :race-names="raceNamesWithData"/>
+          <PlayerDetails :team-scores="teamScores"
+          :race-names="raceNamesWithData"
+          :year.sync="year"/>
         </div>
         <div class="col">
           <div style="width:100%" class="btn-group btn-group-justified">
@@ -32,12 +34,19 @@ import LineChart from './components/LineChart.vue'
 import BarChart from './components/BarChart.vue'
 import PlayerDetails from './components/PlayerDetails.vue'
 
+import genericService from './Services/genericService'
+
 export default {
   name: 'App',
   components: {
     LineChart,
     BarChart,
     PlayerDetails
+  },
+  watch: {
+    year () {
+      this.init()
+    }
   },
   computed: {
     raceNamesWithData () {
@@ -46,9 +55,7 @@ export default {
     teamScoresSorted () {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       let sortedScores = clonedeep(this.teamScores.sort((a, b) => {
-        let scorea = a.total()
-        let scoreb = b.total()
-        return scoreb - scorea
+        return a.total - b.total
       }))
       sortedScores[sortedScores.length - 1].player = 'Chef ' + sortedScores[sortedScores.length - 1].player
       return sortedScores
@@ -56,69 +63,41 @@ export default {
   },
   data () {
     return {
+      loading: true,
       showComponent: 0,
-      raceNames: [
-        'Austria',
-        'Steiermark',
-        'Hungary',
-        'Britain',
-        'Britain Returns',
-        'Spain',
-        'Belgium',
-        'Italy',
-        'Tuscany',
-        'Russia',
-        'Eifel',
-        'Portugal',
-        'Imola',
-        'Turkey',
-        'Bahrain',
-        'Bahrain II',
-        'Abu Dhabi'
-      ],
-      teamScores: [
-        {
-          player: 'Eoghan',
-          colour: '#58D68D',
-          scores: [124, 198, 271, 125, 185, 220, 161, 170, 226, 247, 208, 194, 141, 142, 161, 184,148],
-          total () {
-            return this.scores.reduce(
-              (accumulator, currentValue) => accumulator + currentValue
-            )
-          }
-        },
-        {
-          player: 'Gerard',
-          colour: '#C0392B',
-          scores: [109, 186, 157, 136, 289, 228, 193, 155, 169, 242, 239, 166, 183, 163, 178, 172,148],
-          total () {
-            return this.scores.reduce(
-              (accumulator, currentValue) => accumulator + currentValue
-            )
-          }
-        },
-        {
-          player: 'Shauna',
-          colour: '#7FB3D5',
-          scores: [80, 181, 47, 147, 279, 222, 171, 177, 227, 258, 247, 198, 183, 116, 167, 162, 145],
-          total () {
-            return this.scores.reduce(
-              (accumulator, currentValue) => accumulator + currentValue
-            )
-          }
-        },
-        {
-          player: 'Stone',
-          colour: '#6E2C00',
-          scores: [119, 176, 83, 176, 179, 227, 169, 177, 197, 231, 201, 112, 118, 138, 205, 172,192],
-          total () {
-            return this.scores.reduce(
-              (accumulator, currentValue) => accumulator + currentValue
-            )
-          }
-        }
-      ]
+      year: '2021',
+      raceNames: [],
+      teamScores: []
     }
+  },
+  methods: {
+    init () {
+      this.getRaceList()
+      this.getScores()
+    },
+    getRaceList () {
+      genericService.getRaceList(this.year).then(resp => {
+        this.raceNames = resp
+        this.loading = false
+      })
+    },
+    getScores () {
+      genericService.getScores(this.year).then(resp => {
+        this.teamScores = resp.map(item => {
+          item.total = this.getTotalScore(item.scores)
+          return item
+        })
+        this.loading = false
+      })
+    },
+    getTotalScore (scores) {
+      return scores.reduce(
+        (accumulator, currentValue) => { return accumulator + currentValue }, 0
+      )
+    }
+  },
+  created () {
+    this.init()
   }
 }
 </script>

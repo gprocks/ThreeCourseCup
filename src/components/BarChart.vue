@@ -31,7 +31,7 @@ export default {
       })
     },
     totalAverage () {
-      const totalScore = this.teamScores.reduce((accumulator, currentValue) => accumulator + currentValue.total(), 0)
+      const totalScore = this.teamScores.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0)
       return (totalScore / (this.teamScores.length * this.raceNames.length)).toFixed(2)
     }
   },

@@ -1,0 +1,28 @@
+{
+    "teamScores":[
+    {
+      "player": "Eoghan",
+      "colour":"#58D68D",
+      "scores": []
+      
+    },
+    {
+      "player": "Gerard",
+      "colour": "#C0392B",
+      "scores" : []
+      
+    },
+    {
+      "player": "Shauna",
+      "colour": "#7FB3D5",
+      "scores": []
+      
+    },
+    {
+      "player": "Stone",
+      "colour": "#6E2C00",
+      "scores": []
+      
+    }
+  ]
+}
