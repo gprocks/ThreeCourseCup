@@ -3,9 +3,6 @@ import { Line } from 'vue-chartjs'
 
 export default {
   extends: Line,
-  data () {
-    return {}
-  },
   props: {
     teamScores: {
       type: Array,
@@ -15,6 +12,9 @@ export default {
       type: Array,
       required: true
     }
+  },
+  data () {
+    return {}
   },
   computed: {
     chartData () {
@@ -29,28 +29,38 @@ export default {
       })
     }
   },
-
-  mounted () {
-    this.renderChart(
-      {
-        labels: this.raceNames,
-        datasets: this.chartData
+  watch: {
+    raceNames: {
+      handler () {
+        this.drawChart()
       },
-      {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: 'Total points history'
-        }
-      }
-    )
+      deep: true
+    }
+  },
+  mounted () {
+    this.drawChart()
   },
   methods: {
     getSum (r, a) {
       a += r[r.length - 1] || 0
       r.push(a)
       return r
+    },
+    drawChart () {
+      this.renderChart(
+        {
+          labels: this.raceNames,
+          datasets: this.chartData
+        },
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Total points history'
+          }
+        }
+      )
     }
   }
 }

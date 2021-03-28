@@ -25,7 +25,8 @@ export default {
         return {
           label: team.player,
           data: team.scores,
-          backgroundColor: team.colour,
+          borderWidth: 2,
+          backgroundColor: this.hexToRGB(team.colour, 0.6),
           borderColor: team.colour
         }
       })
@@ -35,36 +36,61 @@ export default {
       return (totalScore / (this.teamScores.length * this.raceNames.length)).toFixed(2)
     }
   },
-  mounted () {
-    this.renderChart(
-      {
-        labels: this.raceNames,
-        datasets: this.chartData
+  watch: {
+    raceNames: {
+      handler () {
+        this.drawChart()
       },
-      {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: 'Per Race Scores'
+      deep: true
+    }
+  },
+  mounted () {
+    this.drawChart()
+  },
+  methods: {
+    drawChart () {
+      this.renderChart(
+        {
+          labels: this.raceNames,
+          datasets: this.chartData
         },
-        annotation: {
-          annotations: [{
-            type: 'line',
-            mode: 'horizontal',
-            scaleID: 'y-axis-0',
-            value: this.totalAverage,
-            borderColor: 'rgba(0,0,0,0.6)',
-            borderWidth: 2,
-            label: {
-              enabled: true,
-              content: 'Average: ' + this.totalAverage,
-              backgroundColor: 'rgba(0,0,0,0.6)'
-            }
-          }]
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Per Race Scores'
+          },
+          annotation: {
+            annotations: [{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              value: this.totalAverage,
+              borderColor: 'rgba(0,0,0,0.6)',
+              borderWidth: 2,
+              label: {
+                enabled: true,
+                content: 'Average: ' + this.totalAverage,
+                backgroundColor: 'rgba(0,0,0,0.6)'
+              }
+            }]
+          }
         }
+      )
+    },
+    hexToRGB (hex, alpha) {
+      var r = parseInt(hex.slice(1, 3), 16)
+      var g = parseInt(hex.slice(3, 5), 16)
+      var b = parseInt(hex.slice(5, 7), 16)
+
+      if (alpha) {
+        return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')'
+      } else {
+        return 'rgb(' + r + ', ' + g + ', ' + b + ')'
       }
-    )
+    }
+
   }
 }
 </script>

@@ -1,66 +1,90 @@
 <template>
   <div>
     <div>
-        <b-dropdown class="mb-2" block split right>
+      <b-dropdown
+        class="mb-2"
+        block
+        split
+        right
+      >
         <template #button-content>
-                <span class="h2">Leaderboard {{internalYear}}</span>
+          <span class="h2">Leaderboard {{ internalYear }}</span>
         </template>
-        <b-dropdown-item v-for="y in years" @click="internalYear=y" :key="`ddi${y}`">{{y}}</b-dropdown-item>
+        <b-dropdown-item
+          v-for="y in years"
+          :key="`ddi${y}`"
+          @click="internalYear=y"
+        >
+          {{ y }}
+        </b-dropdown-item>
       </b-dropdown>
     </div>
-    <div v-for="(item,index) in rankedList" :key="index">
-      <div class="row no-gutters striking-distance"  v-if="index>0 && getStrinkingDistance(item ,rankedList[index-1])">
+    <div
+      v-for="(item,index) in rankedList"
+      :key="index"
+    >
+      <div
+        v-if="index>0 && getStrinkingDistance(item ,rankedList[index-1])"
+        class="row no-gutters striking-distance"
+      >
         <div class="col text-left mr-1">
           <div class="player-name">
-          <span class="team-color-icon" :style="{'background-color': item.colour}">&nbsp;</span>{{item.player}}
+            <span
+              class="team-color-icon"
+              :style="{'background-color': item.colour}"
+            >&nbsp;</span>{{ item.player }}
           </div>
           <div class="mt-3">
-            Chasing <span class="text-bold">{{getPosition(index)}}</span>
+            Chasing <span class="text-bold">{{ getPosition(index) }}</span>
           </div>
         </div>
         <div class="col-5">
           <div class="main-block mb-2 ">
-            <div class="header">Striking distance </div>
+            <div class="header">
+              Striking distance
+            </div>
             <div class="body">
-              in <span class="numeric">{{getStrinkingDistance(item,rankedList[index-1])}}</span> races
+              in <span class="numeric">{{ getStrinkingDistance(item,rankedList[index-1]) }}</span> races
             </div>
           </div>
         </div>
         <div class="col text-left ml-1">
           <div class="player-name">
-            <span class="team-color-icon" :style="{'background-color': rankedList[index-1].colour}">&nbsp;</span>{{rankedList[index-1].player}}
+            <span
+              class="team-color-icon"
+              :style="{'background-color': rankedList[index-1].colour}"
+            >&nbsp;</span>{{ rankedList[index-1].player }}
           </div>
           <div class="mt-3">
-            <span class="text-bold">{{rankedList[index-1].total-item.total}}</span> ahead
+            <span class="text-bold">{{ rankedList[index-1].total-item.total }}</span> ahead
           </div>
         </div>
       </div>
 
-      <div class="player" >
-
+      <div class="player">
         <div>
           <span>Player:</span>
           <span v-if="index===0">&#128081;</span>
           <span v-if="index===1">&#129352;</span>
           <span v-if="index===2">&#129353;</span>
           <span v-if="index===3">&#129364;</span>
-          {{item.player}}
+          {{ item.player }}
         </div>
         <div>
           <span>League Position:</span>
-          {{index + 1}}
+          {{ index + 1 }}
         </div>
         <div>
           <span>Total Score:</span>
-          {{item.total}}
+          {{ item.total }}
         </div>
         <div>
           <span>Highest weekly score:</span>
-          {{raceNames[indexOfMax(item.scores)]}} ({{item.scores[indexOfMax(item.scores)]}})
+          {{ raceNames[indexOfMax(item.scores)] }} ({{ item.scores[indexOfMax(item.scores)] }})
         </div>
         <div>
           <span>Recent average:</span>
-          {{getAverage(item.scores)}}
+          {{ getAverage(item.scores) }}
         </div>
       </div>
     </div>
@@ -71,6 +95,10 @@
 import { mean } from 'mathjs'
 import { BDropdown, BDropdownItem } from 'bootstrap-vue'
 export default {
+  components: {
+    BDropdown,
+    BDropdownItem
+  },
   props: {
     teamScores: {
       type: Array,
@@ -84,10 +112,6 @@ export default {
       type: String,
       required: true
     }
-  },
-  components: {
-    BDropdown,
-    BDropdownItem
   },
   data () {
     return {
@@ -132,7 +156,7 @@ export default {
       if (!scores.length) {
         return 0
       } else {
-        const recentResults = scores.slice(Math.max(scores.length - 3, 1))
+        const recentResults = scores.length > 3 ? scores.slice(Math.max(scores.length - 3, 1)) : scores
         return mean(recentResults).toFixed(2)
       }
     },

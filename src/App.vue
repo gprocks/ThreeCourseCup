@@ -1,25 +1,59 @@
 <template lang="html">
-  <div id="app" v-if="!loading">
+  <div
+    v-if="!loading"
+    id="app"
+  >
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3 col-12">
-          <PlayerDetails :team-scores="teamScores"
-          :race-names="raceNamesWithData"
-          :year.sync="year"/>
+          <player-details
+            :team-scores="teamScores"
+            :race-names="raceNamesWithData"
+            :year.sync="year"
+          />
         </div>
         <div class="col">
-          <div style="width:100%" class="btn-group btn-group-justified">
-            <button type="button" class="btn btn-secondary" @click="showComponent=0">Total Points History</button>
-            <button type="button" class="btn btn-secondary" @click="showComponent=1">Per Race Score</button>
+          <div
+            style="width:100%"
+            class="btn-group btn-group-justified"
+          >
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="showComponent=0"
+            >
+              Total Points History
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="showComponent=1"
+            >
+              Per Race Score
+            </button>
           </div>
-          <div div class="row" v-if="showComponent===0">
+          <div
+            v-if="showComponent===0"
+            div
+            class="row"
+          >
             <div class="col">
-              <LineChart :team-scores="teamScoresSorted" :race-names="raceNamesWithData"/>
+              <line-chart
+                :team-scores="teamScoresSorted"
+                :race-names="raceNamesWithData"
+              />
             </div>
           </div>
-          <div class="row" v-if="showComponent===1">
+          <div
+            v-if="showComponent===1"
+            class="row"
+          >
             <div class="col">
-              <BarChart :team-scores="teamScoresSorted" :race-names="raceNamesWithData"/>
+              <bar-chart
+                ref="barchart"
+                :team-scores="teamScoresSorted"
+                :race-names="raceNamesWithData"
+              />
             </div>
           </div>
         </div>
@@ -43,9 +77,13 @@ export default {
     BarChart,
     PlayerDetails
   },
-  watch: {
-    year () {
-      this.init()
+  data () {
+    return {
+      loading: true,
+      showComponent: 0,
+      year: '2021',
+      raceNames: [],
+      teamScores: []
     }
   },
   computed: {
@@ -61,14 +99,14 @@ export default {
       return sortedScores
     }
   },
-  data () {
-    return {
-      loading: true,
-      showComponent: 0,
-      year: '2021',
-      raceNames: [],
-      teamScores: []
+  watch: {
+    year () {
+      this.init()
+      // this.refs['barchart'].refreshChart()
     }
+  },
+  created () {
+    this.init()
   },
   methods: {
     init () {
@@ -95,9 +133,6 @@ export default {
         (accumulator, currentValue) => { return accumulator + currentValue }, 0
       )
     }
-  },
-  created () {
-    this.init()
   }
 }
 </script>
