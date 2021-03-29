@@ -93,7 +93,7 @@ export default {
     teamScoresSorted () {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       let sortedScores = clonedeep(this.teamScores.sort((a, b) => {
-        return a.total - b.total
+        return b.total - a.total
       }))
       sortedScores[sortedScores.length - 1].player = 'Chef ' + sortedScores[sortedScores.length - 1].player
       return sortedScores
@@ -102,7 +102,6 @@ export default {
   watch: {
     year () {
       this.init()
-      // this.refs['barchart'].refreshChart()
     }
   },
   created () {
