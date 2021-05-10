@@ -3,25 +3,25 @@
     {
       "player": "Eoghan",
       "colour":"#58D68D",
-      "scores": [143,192]
+      "scores": [143,192,159,160]
       
     },
     {
       "player": "Gerard",
       "colour": "#C0392B",
-      "scores" : [148,185]
+      "scores" : [148,185,151,160]
       
     },
     {
       "player": "Shauna",
       "colour": "#7FB3D5",
-      "scores": [183,165]
+      "scores": [183,165,185,161]
       
     },
     {
       "player": "Stone",
       "colour": "#6E2C00",
-      "scores": [138,113]
+      "scores": [138,113,158,155]
       
     }
   ]
