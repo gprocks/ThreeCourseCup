@@ -115,7 +115,7 @@ export default {
   },
   data () {
     return {
-      years: ['2020', '2021']
+      years: ['2020', '2021', '2022']
     }
   },
   computed: {
