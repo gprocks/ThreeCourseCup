@@ -67,7 +67,7 @@
           <span v-if="index===0">&#128081;</span>
           <span v-if="index===1">&#129352;</span>
           <span v-if="index===2">&#129353;</span>
-          <span v-if="index===3">&#129364;</span>
+          <span v-if="index===rankedList.length-1">&#129364;</span>
           {{ item.player }}
         </div>
         <div>
