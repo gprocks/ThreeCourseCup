@@ -86,13 +86,15 @@
           <span>Recent average:</span>
           {{ getAverage(item.scores) }}
         </div>
-        <div v-if="getGapToFirst(item)">
-          <span>Gap to First:</span>
-          {{ getGapToFirst(item) }}
-        </div>
-        <div v-if="getGapToNext(index)">
-          <span> Gap to next <span>
-          {{ getGapToNext(index) }}
+        <div class="row">
+          <div class="col" v-if="getGapToFirst(item)">
+            <span>Gap to first:</span>
+            {{ getGapToFirst(item) }}
+          </div>
+          <div class="col" v-if="getGapToNext(index)">
+            <span> Gap to next: </span>
+            {{ getGapToNext(index) }}
+          </div>
         </div>
       </div>
     </div>
