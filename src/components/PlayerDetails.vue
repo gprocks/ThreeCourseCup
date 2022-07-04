@@ -90,10 +90,10 @@
           <span>Gap to First:</span>
           {{ getGapToFirst(item) }}
         </div>
-        <div v-if="getGapToNext(index)"> 
+        <div v-if="getGapToNext(index)">
           <span> Gap to next <span>
           {{ getGapToNext(index) }}
-        </div>       
+        </div>
       </div>
     </div>
   </div>
