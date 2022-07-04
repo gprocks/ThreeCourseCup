@@ -162,13 +162,13 @@ export default {
     },
     getGapToFirst(team){
       return this.rankedList[0].total-team.total
-    }
+    },
     getGapToNext(index){
       if(index){
         return this.rankedList[index-1].total - this.rankedList[index-1].total
       }
       return 0
-    }
+    },
     getAverage (scores) {
       if (!scores.length) {
         return 0
