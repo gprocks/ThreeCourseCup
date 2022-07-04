@@ -86,7 +86,7 @@
           <span>Recent average:</span>
           {{ getAverage(item.scores) }}
         </div>
-        <div>
+        <div v-if="getGapToFirst(item)">
           <span>Gap to First:</span>
           {{ getGapToFirst(item) }}
         </div>
@@ -165,7 +165,7 @@ export default {
     },
     getGapToNext (index) {
       if (index) {
-        return this.rankedList[index-1].total - this.rankedList[index-1].total
+        return this.rankedList[index - 1].total - this.rankedList[index - 1].total
       }
       return 0
     },
