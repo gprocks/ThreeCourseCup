@@ -165,7 +165,7 @@ export default {
     },
     getGapToNext (index) {
       if (index) {
-        return this.rankedList[index - 1].total - this.rankedList[index - 1].total
+        return this.rankedList[index - 1].total - this.rankedList[index].total
       }
       return 0
     },
