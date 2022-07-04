@@ -71,7 +71,7 @@
           {{ item.player }}
         </div>
         <div>
-          <span>League Position:</span>
+          <span>League Position!:</span>
           {{ index + 1 }}
         </div>
         <div>
