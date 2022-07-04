@@ -87,12 +87,13 @@
           {{ getAverage(item.scores) }}
         </div>
         <div>
-          <span>Gap to first:</span>
+          <span>Gap to First:</span>
           {{getGapToFirst(item)}}
         </div>
-
-
-        
+        <div v-if="getGapToNext(index)"> 
+          <span> Gap to next <span>
+          {{getGapToNext(index)}}
+        </div>       
       </div>
     </div>
   </div>
@@ -160,7 +161,13 @@ export default {
       return 0
     },
     getGapToFirst(team){
-      return this.rankedList[0].total-tem.total
+      return this.rankedList[0].total-team.total
+    }
+    getGapToNext(index){
+      if(index){
+        return this.rankedList[index-1].total - this.rankedList[index-1].total
+      }
+      return 0
     }
     getAverage (scores) {
       if (!scores.length) {
