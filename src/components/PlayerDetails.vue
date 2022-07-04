@@ -86,6 +86,13 @@
           <span>Recent average:</span>
           {{ getAverage(item.scores) }}
         </div>
+        <div>
+          <span>Gap to first:</span>
+          {{getGapToFirst(item)}}
+        </div>
+
+
+        
       </div>
     </div>
   </div>
@@ -152,6 +159,9 @@ export default {
       }
       return 0
     },
+    getGapToFirst(team){
+      return this.rankedList[0].total-tem.total
+    }
     getAverage (scores) {
       if (!scores.length) {
         return 0
