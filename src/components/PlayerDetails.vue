@@ -71,7 +71,7 @@
           {{ item.player }}
         </div>
         <div>
-          <span>League Position!:</span>
+          <span>League Position:</span>
           {{ index + 1 }}
         </div>
         <div>
@@ -88,11 +88,11 @@
         </div>
         <div>
           <span>Gap to First:</span>
-          {{getGapToFirst(item)}}
+          {{ getGapToFirst(item) }}
         </div>
         <div v-if="getGapToNext(index)"> 
           <span> Gap to next <span>
-          {{getGapToNext(index)}}
+          {{ getGapToNext(index) }}
         </div>       
       </div>
     </div>
@@ -160,11 +160,11 @@ export default {
       }
       return 0
     },
-    getGapToFirst(team){
-      return this.rankedList[0].total-team.total
+    getGapToFirst (team) {
+      return this.rankedList[0].total - team.total
     },
-    getGapToNext(index){
-      if(index){
+    getGapToNext (index) {
+      if (index) {
         return this.rankedList[index-1].total - this.rankedList[index-1].total
       }
       return 0
