@@ -1,0 +1,34 @@
+{
+    "teamScores":[
+    {
+      "player": "Eoghan",
+      "colour":"#58D68D",
+      "scores": [169]
+      
+    },
+    {
+      "player": "Gerard",
+      "colour": "#C0392B",
+      "scores" : [155]
+      
+    },
+    {
+      "player": "Shauna",
+      "colour": "#7FB3D5",
+      "scores": [192]
+      
+    },
+    {
+      "player": "Stone",
+      "colour": "#6E2C00",
+      "scores": [181]
+      
+    },
+    {
+      "player": "Olwen",
+      "colour": "#FA7289",
+      "scores": [153]
+      
+    }
+  ]
+}
