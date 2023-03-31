@@ -1,20 +1,16 @@
-// import json from '../assets/race-2020.json'
-
-function getRaceList (year) {
-  let json = require(`../assets/race-${year}.json`)
-  return new Promise((resolve) => {
-    resolve(json.raceList)
-  })
+function getRaceList(year) {
+  return import(`../assets/race-${year}.json`).then((module) => {
+    return module.raceList;
+  });
 }
 
-function getScores (year) {
-  let json = require(`../assets/score-${year}.json`)
-  return new Promise((resolve) => {
-    resolve(json.teamScores)
-  })
+function getScores(year) {
+  return import(`../assets/score-${year}.json`).then((module) => {
+    return module.teamScores;
+  });
 }
 
 export default {
   getRaceList,
-  getScores
-}
+  getScores,
+};

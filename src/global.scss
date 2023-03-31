@@ -1,10 +1,28 @@
-@import '~bootstrap';
-@import '~bootstrap-vue';
+// Your variable overrides
+$body-bg: #212529;
+$body-color: #adb5bd;
+
+$theme-colors: (
+  "secondary": #714cdf,
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+// @import '~bootstrap-vue';
 @import url("https://fonts.googleapis.com/css?family=Comfortaa");
+
 
 
 #app {
   font-family: 'Comfortaa', sans-serif;
+  // font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.chart-area {
+  background-color: #2b3035;
+  height: 400px;  
+  border-radius: 0.25rem;
 }
