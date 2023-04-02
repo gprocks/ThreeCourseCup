@@ -1,59 +1,50 @@
-<template lang="html">
-  <div
-    v-if="!loading"
-    id="app"
-  >
+<template>
+  <div v-if="!loading" id="app" data-bs-theme="dark">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3 col-12">
           <player-details
             :team-scores="teamScores"
             :race-names="raceNamesWithData"
-            :year.sync="year"
+            v-model:year="year"
           />
         </div>
         <div class="col">
-          <div
-            style="width:100%"
-            class="btn-group btn-group-justified"
-          >
+          <div style="width: 100%" class="btn-group btn-group-justified mb-2">
             <button
               type="button"
               class="btn btn-secondary"
-              @click="showComponent=0"
+              @click="showComponent = 0"
             >
               Total Points History
             </button>
             <button
               type="button"
               class="btn btn-secondary"
-              @click="showComponent=1"
+              @click="showComponent = 1"
             >
               Per Race Score
             </button>
           </div>
-          <div
-            v-if="showComponent===0"
-            div
-            class="row"
-          >
+          <div v-if="showComponent === 0" div class="row">
             <div class="col">
-              <line-chart
-                :team-scores="teamScoresSorted"
-                :race-names="raceNamesWithData"
-              />
+              <div class="chart-area p-3">
+                <line-chart
+                  :team-scores="teamScoresSorted"
+                  :race-names="raceNamesWithData"
+                />
+              </div>
             </div>
           </div>
-          <div
-            v-if="showComponent===1"
-            class="row"
-          >
+          <div v-if="showComponent === 1" class="row">
             <div class="col">
-              <bar-chart
-                ref="barchart"
-                :team-scores="teamScoresSorted"
-                :race-names="raceNamesWithData"
-              />
+              <div class="chart-area">
+                <bar-chart
+                  ref="barchart"
+                  :team-scores="teamScoresSorted"
+                  :race-names="raceNamesWithData"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -62,87 +53,83 @@
   </div>
 </template>
 
-<script>
-import clonedeep from 'lodash.clonedeep'
-import LineChart from './components/LineChart.vue'
-import BarChart from './components/BarChart.vue'
-import PlayerDetails from './components/PlayerDetails.vue'
+<script lang="ts">
+import clonedeep from "lodash.clonedeep";
+import LineChart from "./components/LineChart.vue";
+import BarChart from "./components/BarChart.vue";
+import PlayerDetails from "./components/PlayerDetails.vue";
 
-import genericService from './Services/genericService'
+import genericService from "./services/genericService";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     LineChart,
     BarChart,
-    PlayerDetails
+    PlayerDetails,
   },
-  data () {
+  data() {
     return {
       loading: true,
       showComponent: 0,
-      year: '2023',
+      year: "2023",
       raceNames: [],
-      teamScores: []
-    }
+      teamScores: [],
+    };
   },
   computed: {
-    raceNamesWithData () {
-      return this.raceNames.slice(0, this.teamScores[0].scores.length)
+    raceNamesWithData() {
+      return this.teamScores[0]
+        ? this.raceNames.slice(0, this.teamScores[0].scores.length)
+        : [];
     },
-    teamScoresSorted () {
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      let sortedScores = clonedeep(this.teamScores.sort((a, b) => {
-        return b.total - a.total
-      }))
-      sortedScores[sortedScores.length - 1].player = 'Chef ' + sortedScores[sortedScores.length - 1].player
-      return sortedScores
-    }
+    teamScoresSorted() {
+      if (!this.teamScores.length) {
+        return [];
+      } else {
+        let sortedScores = clonedeep(this.teamScores);
+        sortedScores.sort((a, b) => {
+          return b.total - a.total;
+        });
+        sortedScores[sortedScores.length - 1].player =
+          "Chef " + sortedScores[sortedScores.length - 1].player;
+        return sortedScores;
+      }
+    },
   },
   watch: {
-    year () {
-      this.init()
-    }
+    year() {
+      this.init();
+    },
   },
-  created () {
-    this.init()
+  created() {
+    this.init();
   },
   methods: {
-    init () {
-      this.getRaceList()
-      this.getScores()
+    init() {
+      Promise.all([
+        genericService.getRaceList(this.year),
+        genericService.getScores(this.year),
+      ]).then((respArray) => {
+        this.getRaceList(respArray[0]);
+        this.getScores(respArray[1]);
+        this.loading = false;
+      });
     },
-    getRaceList () {
-      genericService.getRaceList(this.year).then(resp => {
-        this.raceNames = resp
-        this.loading = false
-      })
+    getRaceList(resp) {
+      this.raceNames = resp;
     },
-    getScores () {
-      genericService.getScores(this.year).then(resp => {
-        this.teamScores = resp.map(item => {
-          item.total = this.getTotalScore(item.scores)
-          return item
-        })
-        this.loading = false
-      })
+    getScores(resp) {
+      this.teamScores = resp.map((item) => {
+        item.total = this.getTotalScore(item.scores);
+        return item;
+      });
     },
-    getTotalScore (scores) {
-      return scores.reduce(
-        (accumulator, currentValue) => { return accumulator + currentValue }, 0
-      )
-    }
-  }
-}
+    getTotalScore(scores) {
+      return scores.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+      }, 0);
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 10px;
-}
-</style>

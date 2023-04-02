@@ -1,67 +1,92 @@
-<script>
-import { Line } from 'vue-chartjs'
+<template>
+  <LineChart :data="test" :options="chartOptions" />
+</template>
+
+<script lang="ts">
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line as LineChart } from "vue-chartjs";
+
+ChartJS.defaults.color = "#17b06b";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default {
-  extends: Line,
   props: {
     teamScores: {
       type: Array,
-      required: true
+      required: true,
     },
     raceNames: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
-    return {}
+  components: {
+    LineChart,
+  },
+  data() {
+    return {
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        color: "#17b06b",
+        plugins: {
+          title: {
+            display: true,
+            text: "Total points history",
+            color: "#FFFFFF",
+            font: {
+              size: 16,
+            },
+          },
+        },
+      },
+    };
   },
   computed: {
-    chartData () {
-      return this.teamScores.map(team => {
+    test() {
+      return {
+        labels: this.raceNames,
+        datasets: this.chartData,
+      };
+    },
+    chartData() {
+      return this.teamScores.map((team) => {
         return {
           label: team.player,
           data: team.scores.reduce(this.getSum, []),
-          backgroundColor: 'transparent',
+          backgroundColor: team.colour,
           borderColor: team.colour,
-          pointBackgroundColor: team.colour
-        }
-      })
-    }
-  },
-  watch: {
-    raceNames: {
-      handler () {
-        this.drawChart()
-      },
-      deep: true
-    }
-  },
-  mounted () {
-    this.drawChart()
-  },
-  methods: {
-    getSum (r, a) {
-      a += r[r.length - 1] || 0
-      r.push(a)
-      return r
+          borderWidth: 2,
+          pointBackgroundColor: team.colour,
+        };
+      });
     },
-    drawChart () {
-      this.renderChart(
-        {
-          labels: this.raceNames,
-          datasets: this.chartData
-        },
-        {
-          responsive: true,
-          maintainAspectRatio: false,
-          title: {
-            display: true,
-            text: 'Total points history'
-          }
-        }
-      )
-    }
-  }
-}
+  },
+  watch: {},
+
+  methods: {
+    getSum(r, a) {
+      a += r[r.length - 1] || 0;
+      r.push(a);
+      return r;
+    },
+  },
+};
 </script>
