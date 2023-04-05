@@ -54,11 +54,12 @@
 </template>
 
 <script lang="ts">
+// @ts-ignore
 import clonedeep from "lodash.clonedeep";
 import LineChart from "./components/LineChart.vue";
 import BarChart from "./components/BarChart.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
-
+// @ts-ignore
 import genericService from "./services/genericService.js";
 
 export default {
