@@ -60,7 +60,7 @@ import LineChart from "./components/LineChart.vue";
 import BarChart from "./components/BarChart.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
 // @ts-ignore
-import genericService from "./services/genericService.js";
+import genericService from "./serviceslocal/genericService.js";
 
 export default {
   name: "App",
