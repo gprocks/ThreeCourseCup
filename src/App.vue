@@ -59,7 +59,7 @@ import LineChart from "./components/LineChart.vue";
 import BarChart from "./components/BarChart.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
 
-import genericService from "./services/genericService";
+import genericService from "./services/genericService.js";
 
 export default {
   name: "App",
