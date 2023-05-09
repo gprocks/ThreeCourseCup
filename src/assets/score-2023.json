@@ -3,32 +3,31 @@
     {
       "player": "Eoghan",
       "colour":"#00fe9b",
-      "scores": [169,156, 236]
+      "scores": [169, 156, 236, 258, 185]
       
     },
     {
       "player": "Gerard",
       "colour": "#FF5161",
-      "scores" : [155,145, 183]
+      "scores" : [155, 145, 183, 244, 218]
       
     },
     {
       "player": "Shauna",
       "colour": "#FF53cd",
-      "scores": [192, 170, 130]
+      "scores": [192, 170, 130, 256, 200]
       
     },
     {
       "player": "Stone",
       "colour": "#ffdb4e",
-      "scores": [181, 207, 185]
+      "scores": [181, 207, 185, 267, 203]
       
     },
     {
       "player": "Olwen",
       "colour": "#2dd9fe",
-      "scores": [153,148, 174]
-      
+      "scores": [153,148, 174, 215, 204]      
     }
   ]
 }
