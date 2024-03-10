@@ -73,7 +73,7 @@ export default {
     return {
       loading: true,
       showComponent: 0,
-      year: "2023",
+      year: "2024",
       raceNames: [],
       teamScores: [],
     };

@@ -1,0 +1,38 @@
+{
+    "teamScores":[
+    {
+      "player": "Eoghan",
+      "colour":"#00fe9b",
+      "scores": [925, 905]
+      
+    },
+    {
+      "player": "Gerard",
+      "colour": "#FF5161",
+      "scores" : [797, 1009]
+      
+    },
+    {
+      "player": "Shauna",
+      "colour": "#FF53cd",
+      "scores": [892, 930]
+      
+    },
+    {
+      "player": "Stone",
+      "colour": "#ffdb4e",
+      "scores": [913, 864]
+      
+    },
+    {
+      "player": "Olwen",
+      "colour": "#2dd9fe",
+      "scores": [862, 840]      
+    },
+    {
+      "player": "Claire",
+      "colour": "#ab20fd",
+      "scores": [858, 811]      
+    }
+  ]
+}
