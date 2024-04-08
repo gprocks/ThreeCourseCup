@@ -3,36 +3,36 @@
     {
       "player": "Eoghan",
       "colour":"#00fe9b",
-      "scores": [925, 905, 924]
+      "scores": [925, 905, 992, 924]
       
     },
     {
       "player": "Gerard",
       "colour": "#FF5161",
-      "scores" : [797, 1009, 917]
+      "scores" : [797, 1009, 1010, 917]
       
     },
     {
       "player": "Shauna",
       "colour": "#FF53cd",
-      "scores": [892, 930, 960]
+      "scores": [892, 930, 1030, 960]
       
     },
     {
       "player": "Stone",
       "colour": "#ffdb4e",
-      "scores": [913, 864, 897]
+      "scores": [913, 864, 859, 897]
       
     },
     {
       "player": "Olwen",
       "colour": "#2dd9fe",
-      "scores": [862, 840, 899]      
+      "scores": [862, 840, 904, 899]      
     },
     {
       "player": "Claire",
       "colour": "#ab20fd",
-      "scores": [858, 811, 807]      
+      "scores": [858, 811, 819, 807]      
     }
   ]
 }
