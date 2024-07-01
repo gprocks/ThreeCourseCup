@@ -164,6 +164,8 @@ export default {
     getStrinkingDistance(teamA, teamB) {
       const aRate = this.getAverage(teamA.scores);
       const bRate = this.getAverage(teamB.scores);
+      console.log("compare", teamA, teamB)
+      console.log("",aRate, bRate, aRate > bRate)
       if (aRate > bRate) {
         const deficit = teamB.total - teamA.total;
         const surplus = aRate - bRate;
