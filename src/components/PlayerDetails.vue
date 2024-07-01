@@ -92,7 +92,7 @@
         </div>
         <div>
           <span>Recent average:</span>
-          {{ getAverage(item.scores) }}
+          {{ getAverage(item.scores).toFixed(2) }}
         </div>
         <div class="row">
           <div class="col" v-if="getGapToFirst(item)">
@@ -191,7 +191,7 @@ export default {
           scores.length > 3
             ? scores.slice(Math.max(scores.length - 3, 1))
             : scores;
-        return mean(recentResults).toFixed(2);
+        return mean(recentResults);
       }
     },
     indexOfMax(arr) {
