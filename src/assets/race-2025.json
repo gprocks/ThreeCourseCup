@@ -1,3 +1,28 @@
-[
-Melbourne,Shanghai,Suzuka,Sakhir,Jeddah,Miami,Imola,Monte Carlo,Catalunya,Montreal,Spielberg,Silverstone,Spa-Francorchamps,Budapest,Zandvoort,Monza,Baku,Singapore,Austin,Mexico City,Sao Paulo,Las Vegas,Doha,Yas Marina
-]
+{
+	"raceList": [
+    "Melbourne",
+    "Shanghai",
+    "Suzuka",
+    "Sakhir",
+    "Jeddah",
+    "Miami",
+    "Imola",
+    "Monte Carlo",
+    "Catalunya",
+    "Montreal",
+    "Spielberg",
+    "Silverstone",
+    "Spa-Francorchamps",
+    "Budapest",
+    "Zandvoort",
+    "Monza",
+    "Baku",
+    "Singapore",
+    "Austin",
+    "Mexico City",
+    "Sao Paulo",
+    "Las Vegas",
+    "Doha",
+    "Yas Marina"
+  ]
+}
