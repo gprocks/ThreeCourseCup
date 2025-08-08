@@ -111,6 +111,8 @@
 
 <script lang="ts">
 import { mean } from "mathjs";
+import genericService from "../serviceslocal/genericService.js";
+
 // import { BDropdown, BDropdownItem } from "bootstrap-vue";
 export default {
   components: {
@@ -133,9 +135,10 @@ export default {
   },
   data() {
     return {
-      years: ["2020", "2021", "2022", "2023", "2024", "2025"],
+      years: [] as number[],
     };
   },
+
   computed: {
     rankedList() {
       let tempArray = [...this.teamScores];
@@ -150,6 +153,19 @@ export default {
       },
     },
   },
+  async mounted() {
+    const startYear = 2020;
+    let lastYear = new Date().getFullYear();
+    await genericService.getRaceList(lastYear).catch(() => {
+      // If the request fails, we assume the last year is the current year
+      lastYear = lastYear - 1;
+    });
+    this.years = Array.from(
+      { length: lastYear - startYear + 1 },
+      (_, i) => startYear + i
+    );
+  },
+
   methods: {
     getPosition(position) {
       switch (position) {
@@ -164,8 +180,6 @@ export default {
     getStrinkingDistance(teamA, teamB) {
       const aRate = this.getAverage(teamA.scores);
       const bRate = this.getAverage(teamB.scores);
-      console.log("compare", teamA, teamB)
-      console.log("",aRate, bRate, aRate > bRate)
       if (aRate > bRate) {
         const deficit = teamB.total - teamA.total;
         const surplus = aRate - bRate;

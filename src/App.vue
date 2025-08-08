@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-3 col-12">
           <player-details
-            :team-scores="teamScores"
+            :team-scores="teamScoresSorted"
             :race-names="raceNamesWithData"
             v-model:year="year"
           />
@@ -14,6 +14,15 @@
             <button
               type="button"
               class="btn btn-secondary"
+              :disabled="showComponent === 2"
+              @click="showComponent = 2"
+            >
+              Leaderboard History
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              :disabled="showComponent === 0"
               @click="showComponent = 0"
             >
               Total Points History
@@ -21,6 +30,7 @@
             <button
               type="button"
               class="btn btn-secondary"
+              :disabled="showComponent === 1"
               @click="showComponent = 1"
             >
               Per Race Score
@@ -29,7 +39,7 @@
           <div v-if="showComponent === 0" div class="row">
             <div class="col">
               <div class="chart-area p-3">
-                <line-chart
+                <ScoreHistory
                   :team-scores="teamScoresSorted"
                   :race-names="raceNamesWithData"
                 />
@@ -39,8 +49,19 @@
           <div v-if="showComponent === 1" class="row">
             <div class="col">
               <div class="chart-area">
-                <bar-chart
+                <RaceBreakdown
                   ref="barchart"
+                  :team-scores="teamScoresSorted"
+                  :race-names="raceNamesWithData"
+                />
+              </div>
+            </div>
+          </div>
+          <div v-if="showComponent === 2" class="row">
+            <div class="col">
+              <div class="chart-area">
+                <LeaderboardHistory
+                  ref="leaderboardhistory"
                   :team-scores="teamScoresSorted"
                   :race-names="raceNamesWithData"
                 />
@@ -56,24 +77,26 @@
 <script lang="ts">
 // @ts-ignore
 import clonedeep from "lodash.clonedeep";
-import LineChart from "./components/LineChart.vue";
-import BarChart from "./components/BarChart.vue";
+import ScoreHistory from "./components/ScoreHistory.vue";
+import RaceBreakdown from "./components/RaceBreakdown.vue";
 import PlayerDetails from "./components/PlayerDetails.vue";
+import LeaderboardHistory from "./components/LeaderboardHistory.vue";
 // @ts-ignore
 import genericService from "./serviceslocal/genericService.js";
 
 export default {
   name: "App",
   components: {
-    LineChart,
-    BarChart,
+    ScoreHistory,
+    RaceBreakdown,
     PlayerDetails,
+    LeaderboardHistory,
   },
   data() {
     return {
       loading: true,
-      showComponent: 0,
-      year: "2025",
+      showComponent: 2,
+      year: "",
       raceNames: [],
       teamScores: [],
     };
@@ -131,6 +154,14 @@ export default {
         return accumulator + currentValue;
       }, 0);
     },
+  },
+  async mounted() {
+    let lastYear = new Date().getFullYear();
+    await genericService.getRaceList(lastYear).catch(() => {
+      // If the request fails, we assume the last year is the current year
+      lastYear = lastYear - 1;
+    });
+    this.year = lastYear.toString();
   },
 };
 </script>
