@@ -126,9 +126,7 @@ export default {
       this.init();
     },
   },
-  created() {
-    this.init();
-  },
+
   methods: {
     init() {
       Promise.all([
@@ -162,6 +160,7 @@ export default {
       lastYear = lastYear - 1;
     });
     this.year = lastYear.toString();
+    this.init();
   },
 };
 </script>
