@@ -3,37 +3,37 @@
     {
       "player": "Eoghan",
       "colour":"#00fe9b",
-      "scores": [955],
+      "scores": [955, 1187],
       "value": 121.6
     },
     {
       "player": "Gerard",
       "colour": "#FF5161",
-      "scores" : [1116],
+      "scores" : [1116, 1131],
       "value": 133.5      
     },
     {
       "player": "Shauna",
       "colour": "#FF53cd",
-      "scores": [994],
+      "scores": [994, 985],
       "value": 115.1      
     },
     {
       "player": "Stone",
       "colour": "#ffdb4e",
-      "scores": [938],
+      "scores": [938, 801],
       "value": 133.1      
     },
     {
       "player": "Olwen",
       "colour": "#2dd9fe",
-      "scores": [974],
+      "scores": [974, 1009],
       "value": 127.0    
     },
     {
       "player": "Claire",
       "colour": "#ab20fd",
-      "scores": [1133],
+      "scores": [1133, 990],
       "value": 99.0
     }
   ]
