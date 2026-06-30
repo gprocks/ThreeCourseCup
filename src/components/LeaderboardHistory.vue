@@ -99,7 +99,6 @@ export default {
       return r;
     },
     calculatePlayerPositions(players) {
-      console.log(players);
       const maxStages = Math.max(...players.map((p) => p.scores.length));
       let positionObject = {};
 
@@ -133,7 +132,6 @@ export default {
           positionObject[player.player].push(player.position);
         });
       }
-      console.log("Position Object:", positionObject);
       return positionObject;
       // return players.map((team) => {
       //   return {

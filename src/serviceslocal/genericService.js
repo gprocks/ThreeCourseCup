@@ -10,7 +10,17 @@ function getScores(year) {
   });
 }
 
+function getSeasonData(year) {
+  return import(`../assets/score-${year}.json`).then((module) => {
+    return {
+      teamScores: module.teamScores,
+      isComplete: module.isComplete,
+    };
+  });
+}
+
 export default {
   getRaceList,
   getScores,
+  getSeasonData,
 };
