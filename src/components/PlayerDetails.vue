@@ -32,7 +32,7 @@
               class="team-color-icon"
               :style="{ 'background-color': item.colour }"
               >&nbsp;</span
-            >{{ item.player }}
+            >{{ item.nickname || item.player }}
           </div>
           <div class="mt-3">
             Chasing <span class="text-bold">{{ getPosition(index) }}</span>
